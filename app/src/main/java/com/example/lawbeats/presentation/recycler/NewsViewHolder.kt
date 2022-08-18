@@ -2,6 +2,7 @@ package com.example.lawbeats.presentation.recycler
 
 import android.util.Log
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.app_domain.entity.NewsEntity
 import com.example.lawbeats.R
 import com.example.lawbeats.databinding.NewsItemBinding
@@ -13,7 +14,9 @@ class NewsViewHolder(val binding: NewsItemBinding) : NewsViewHolderInterface(bin
         if (newsEntity.imgUrl != null) {
             newsEntity.imgUrl?.let {
                 binding.newsImage.setImageDrawable(null)
-                Glide.with(binding.newsImage.context).load(it).placeholder(R.drawable.news_image)
+                Glide.with(binding.newsImage.context).load(it)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .placeholder(R.drawable.news_image)
                     .into(binding.newsImage)
                 Log.d("img url", it)
             }

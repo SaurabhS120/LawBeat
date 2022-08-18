@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -11,6 +12,7 @@
         app:cardElevation="1sp"
         app:cardCornerRadius="10sp"
         app:cardBackgroundColor="@color/cardBackgroundColor">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,18 +22,20 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="10sp"
                 app:cardElevation="0dp">
+
                 <ImageView
                     android:id="@+id/news_image"
                     android:layout_width="match_parent"
                     android:layout_height="250sp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/news_image"/>
+                    android:contentDescription="@string/news_image"
+                    tools:src="@drawable/news_image" />
             </androidx.cardview.widget.CardView>
             <TextView
                 android:id="@+id/news_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dummy news Heading"
+                android:text="@string/dummy_news_heading"
                 android:layout_margin="10sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"/>
@@ -51,13 +55,16 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_bookmark_border_24"
                     app:tint="@color/white"
+                    android:contentDescription="@string/news_image"
                     android:padding="10sp"/>
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_share_24"
                     app:tint="@color/white"
-                    android:padding="10sp"/>
+                    android:contentDescription="@string/news_image"
+                    android:padding="10sp" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
