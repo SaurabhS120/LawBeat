@@ -1,7 +1,6 @@
 package com.example.demo_login_repo
 
 import androidx.room.ColumnInfo
-import androidx.room.Dao
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

@@ -16,6 +16,6 @@ rootProject.name = "LawBeats"
 include ':app'
 include ':login'
 include ':core'
-include ':demo_login_repo'
+include ':dummy_login_with_room'
 include ':lawbeats_retrofit_repo'
 include ':app_domain'

@@ -13,7 +13,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/app_domain" />
             <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/demo_login_repo" />
+            <option value="$PROJECT_DIR$/dummy_login_with_room" />
             <option value="$PROJECT_DIR$/lawbeats_retrofit_repo" />
             <option value="$PROJECT_DIR$/login" />
           </set>
