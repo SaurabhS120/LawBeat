@@ -1,15 +1,15 @@
 package com.example.lawbeats_retrofit_repo
 
-import retrofit2.Retrofit
-import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object APIClient {
+internal object APIClient {
     private lateinit var retrofit: Retrofit
-    private lateinit var apiInterface:APIInterface
-    private fun getClient(): Retrofit{
-        if(this::retrofit.isInitialized.not()){
+    private lateinit var apiInterface: APIInterface
+    private fun getClient(): Retrofit {
+        if (this::retrofit.isInitialized.not()) {
             val interceptor = HttpLoggingInterceptor()
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
             val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()

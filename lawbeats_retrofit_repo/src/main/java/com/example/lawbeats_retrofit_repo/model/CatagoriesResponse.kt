@@ -2,7 +2,7 @@ package com.example.lawbeats_retrofit_repo.model
 
 import com.google.gson.annotations.SerializedName
 
-data class CatagoriesResponse(
+internal data class CatagoriesResponse(
 
 	@field:SerializedName("data")
 	val data: List<DataItem?>? = null,
@@ -14,7 +14,7 @@ data class CatagoriesResponse(
 	val statusCode: Int? = null
 )
 
-data class DataItem(
+internal data class DataItem(
 
 	@field:SerializedName("name")
 	val name: String? = null,
@@ -29,7 +29,7 @@ data class DataItem(
 	val subcat: List<SubcatItem?>? = null
 )
 
-data class SubcatItem(
+internal data class SubcatItem(
 
 	@field:SerializedName("name")
 	val name: String? = null,

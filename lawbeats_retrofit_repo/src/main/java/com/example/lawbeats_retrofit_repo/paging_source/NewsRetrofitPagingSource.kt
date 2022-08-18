@@ -7,17 +7,22 @@ import com.example.app_domain.entity.NewsEntity
 import com.example.app_domain.repo.NewsRepo
 import com.example.app_domain.state.NewsApiState
 
-class NewsRetrofitPagingSource(
+internal class NewsRetrofitPagingSource(
     val backend: NewsRepo,
-    val tid:Int
+    val tid: Int
 ) : PagingSource<Int, NewsEntity>() {
-  override suspend fun load(
-    params: LoadParams<Int>
-  ): LoadResult<Int, NewsEntity> {
-    try {
-      // Start refresh at page 1 if undefined.
-      val nextPageNumber = params.key ?: 1
-      val response = backend.invoke(tid = tid, page = nextPageNumber, uid = 66, items_per_page = params.loadSize)
+    override suspend fun load(
+        params: LoadParams<Int>
+    ): LoadResult<Int, NewsEntity> {
+        try {
+            // Start refresh at page 1 if undefined.
+            val nextPageNumber = params.key ?: 1
+            val response = backend.invoke(
+                tid = tid,
+                page = nextPageNumber,
+                uid = 66,
+                items_per_page = params.loadSize
+            )
       return when(response){
         is NewsApiState.Success ->{
             LoadResult.Page(

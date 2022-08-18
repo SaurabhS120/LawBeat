@@ -2,7 +2,7 @@ package com.example.lawbeats_retrofit_repo.model
 
 import com.google.gson.annotations.SerializedName
 
-data class NewsResponse(
+internal data class NewsResponse(
 
 	@field:SerializedName("data")
 	val data: List<DataItem1?>? = null,
@@ -17,7 +17,7 @@ data class NewsResponse(
 	val statusCode: Int? = null
 )
 
-data class AuthorInfoItem(
+internal data class AuthorInfoItem(
 
 	@field:SerializedName("author_name")
 	val authorName: String? = null,
@@ -26,7 +26,7 @@ data class AuthorInfoItem(
 	val authorId: String? = null
 )
 
-data class DataItem1(
+internal data class DataItem1(
 
 	@field:SerializedName("author_name")
 	val authorName: String? = null,
@@ -101,7 +101,7 @@ data class DataItem1(
 	val authorInfo: Any? = null
 )
 
-data class PagerItem(
+internal data class PagerItem(
 
 	@field:SerializedName("items_per_page")
 	val itemsPerPage: Int? = null,
