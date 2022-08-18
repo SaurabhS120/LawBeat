@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        app:cardElevation="1sp"
+        app:cardCornerRadius="10sp"
+        app:cardBackgroundColor="@color/cardBackgroundColor">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10sp"
+                app:cardElevation="0dp">
+                <ImageView
+                    android:id="@+id/news_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="250sp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/news_image"/>
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/news_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dummy news Heading"
+                android:layout_margin="10sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
+<!--            <TextView-->
+<!--                android:id="@+id/news_content"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Demo news aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"-->
+<!--                android:layout_margin="10sp"-->
+<!--                android:textColor="@color/white"/>-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_bookmark_border_24"
+                    app:tint="@color/white"
+                    android:padding="10sp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_share_24"
+                    app:tint="@color/white"
+                    android:padding="10sp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</FrameLayout>
