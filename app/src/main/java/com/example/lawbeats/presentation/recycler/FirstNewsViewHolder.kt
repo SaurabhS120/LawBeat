@@ -4,9 +4,10 @@ import android.util.Log
 import com.bumptech.glide.Glide
 import com.example.app_domain.entity.NewsEntity
 import com.example.lawbeats.R
-import com.example.lawbeats.databinding.NewsItemBinding
+import com.example.lawbeats.databinding.FirstNewsItemBinding
 
-class NewsViewHolder(val binding: NewsItemBinding) : NewsViewHolderInterface(binding.root) {
+class FirstNewsViewHolder(val binding: FirstNewsItemBinding) :
+    NewsViewHolderInterface(binding.root) {
     override fun bindData(newsEntity: NewsEntity) {
         binding.newsHeading.setText(newsEntity.title)
 //            binding.newsContent.setText(newsEntity.content)
@@ -21,4 +22,4 @@ class NewsViewHolder(val binding: NewsItemBinding) : NewsViewHolderInterface(bin
             binding.newsImage.setImageResource(R.drawable.news_image)
         }
     }
-    }
+}
