@@ -1,6 +1,9 @@
 package com.example.core
 
-sealed class NavigationDestination{
-    class LoginDestination(): NavigationDestination()
-    class RegisterDestination(): NavigationDestination()
+import com.example.app_domain.entity.NewsEntity
+
+sealed class NavigationDestination {
+    class LoginDestination() : NavigationDestination()
+    class RegisterDestination() : NavigationDestination()
+    class DetailedNewsDestination(val news: NewsEntity) : NavigationDestination()
 }

@@ -12,11 +12,16 @@
     <fragment
         android:id="@+id/login_fragment"
         tools:layout="@layout/fragment_login"
-        android:name="com.example.login.presentation.LoginFragment"/>
+        android:name="com.example.login.presentation.LoginFragment" />
 
     <fragment
         android:id="@+id/registration_fragment"
         tools:layout="@layout/fragment_register"
-        android:name="com.example.login.presentation.RegisterFragment"/>
+        android:name="com.example.login.presentation.RegisterFragment" />
+
+    <fragment
+        android:id="@+id/detailed_news_fragment"
+        android:name="com.example.lawbeats.presentation.DetailedNewsFragment"
+        tools:layout="@layout/fragment_detailed_news" />
 
 </navigation>

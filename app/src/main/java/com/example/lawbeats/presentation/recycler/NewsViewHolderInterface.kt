@@ -5,5 +5,5 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.app_domain.entity.NewsEntity
 
 abstract class NewsViewHolderInterface(view: View) : RecyclerView.ViewHolder(view) {
-    abstract fun bindData(newsEntity: NewsEntity)
+    abstract fun bindData(newsEntity: NewsEntity, onNewsSelected: (news: NewsEntity) -> Unit)
 }

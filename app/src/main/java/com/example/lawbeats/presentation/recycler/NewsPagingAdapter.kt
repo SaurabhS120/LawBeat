@@ -8,7 +8,10 @@ import com.example.app_domain.entity.NewsEntity
 import com.example.lawbeats.databinding.FirstNewsItemBinding
 import com.example.lawbeats.databinding.NewsItemBinding
 
-class NewsPagingAdapter(val context: Context) :
+class NewsPagingAdapter(
+    val context: Context,
+    val onNewsSelected: (selectedNews: NewsEntity) -> Unit
+) :
     PagingDataAdapter<NewsEntity, NewsViewHolderInterface>(NewsEntity.DIFF_UTIL) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -34,7 +37,7 @@ class NewsPagingAdapter(val context: Context) :
         // Note that item may be null. ViewHolder must support binding a
         // null item as a placeholder.
         item?.let {
-            holder.bindData(it)
+            holder.bindData(it, onNewsSelected)
         }
     }
 }
