@@ -6,7 +6,13 @@ import com.example.lawbeats_retrofit_repo.model.NewsResponse
 internal object NewsMapper {
     fun convert(newsResponse: NewsResponse?): List<NewsEntity> {
         return newsResponse?.data?.map {
-            NewsEntity(it?.title ?: "", it?.body ?: "", it?.image)
+            NewsEntity(
+                it?.title ?: "",
+                it?.body ?: "",
+                it?.image,
+                it?.authorName ?: "",
+                it?.date ?: ""
+            )
         } ?: listOf()
     }
 }

@@ -14,9 +14,9 @@ import com.example.app_domain.repo.NewsPagingRepo
 import com.example.app_domain.repo.NewsRepo
 import com.example.core.MainActivityInterface
 import com.example.core.NavigationDestination
-import com.example.lawbeats.data.demo.repo.DemoNewsPagingRepo
 import com.example.lawbeats.databinding.FragmentNewsBinding
 import com.example.lawbeats.presentation.recycler.NewsPagingAdapter
+import com.example.lawbeats_retrofit_repo.repo.NewsRetrofitPagingRepo
 import com.example.lawbeats_retrofit_repo.repo.NewsRetrofitRepoImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -49,7 +49,7 @@ class NewsFragment : Fragment() {
         }
         binding.newsRecyclerView.adapter = adapter
 
-        pagingRepo = DemoNewsPagingRepo(repo, tid, lifecycleScope)
+        pagingRepo = NewsRetrofitPagingRepo(repo, tid, lifecycleScope)
 //        pagingRepo = DemoNewsPagingRepo(DemoNewsRepo(),tid,lifecycleScope)
 
         binding.swipeRefreshLayout.setOnRefreshListener {

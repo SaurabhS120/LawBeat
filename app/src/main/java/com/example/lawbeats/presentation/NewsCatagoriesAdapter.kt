@@ -5,7 +5,8 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.app_domain.entity.NewsTabEntity
 
-class DemoCollectionAdapter(fragment: Fragment,val tabList: List<NewsTabEntity>) : FragmentStateAdapter(fragment) {
+class NewsCatagoriesAdapter(fragment: Fragment, val tabList: List<NewsTabEntity>) :
+    FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = tabList.size
 
@@ -14,8 +15,8 @@ class DemoCollectionAdapter(fragment: Fragment,val tabList: List<NewsTabEntity>)
         val fragment = NewsFragment()
         fragment.arguments = Bundle().apply {
             // Our object is just an integer :-P
-            putInt("tab_id",tabList.get(position).tid.toInt())
-            putString("tab",tabList.get(position).name)
+            putInt("tab_id", tabList.get(position).tid.toInt())
+            putString("tab", tabList.get(position).name)
         }
         return fragment
     }

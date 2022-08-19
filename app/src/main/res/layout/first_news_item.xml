@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
-        app:cardBackgroundColor="?attr/colorPrimary"
+        app:cardBackgroundColor="@color/cardBackgroundColor"
         app:cardCornerRadius="10sp"
         app:cardElevation="1sp">
 
@@ -49,27 +49,42 @@
             <!--                android:text="Demo news aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"-->
             <!--                android:layout_margin="10sp"-->
             <!--                android:textColor="@color/white"/>-->
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end">
+                android:layout_height="wrap_content">
 
-                <ImageView
+                <TextView
+                    android:id="@+id/author_and_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/news_image"
-                    android:padding="10sp"
-                    android:src="@drawable/ic_baseline_bookmark_border_24"
-                    app:tint="@color/white" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="12sp"
+                    android:textColor="@color/white"
+                    tools:text="Author | time" />
 
-                <ImageView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/news_image"
-                    android:padding="10sp"
-                    android:src="@drawable/ic_baseline_share_24"
-                    app:tint="@color/white" />
-            </LinearLayout>
+                    android:layout_gravity="end"
+                    android:gravity="end">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/news_image"
+                        android:padding="10sp"
+                        android:src="@drawable/ic_baseline_bookmark_border_24"
+                        app:tint="@color/white" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/news_image"
+                        android:padding="10sp"
+                        android:src="@drawable/ic_baseline_share_24"
+                        app:tint="@color/white" />
+                </LinearLayout>
+            </FrameLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </FrameLayout>
