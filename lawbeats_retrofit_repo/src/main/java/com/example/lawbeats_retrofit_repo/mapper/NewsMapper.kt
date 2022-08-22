@@ -11,7 +11,8 @@ internal object NewsMapper {
                 it?.body ?: "",
                 it?.image,
                 it?.authorName ?: "",
-                it?.date ?: ""
+                it?.date ?: "",
+                it?.rawDate ?: ""
             )
         } ?: listOf()
     }

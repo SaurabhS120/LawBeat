@@ -38,6 +38,22 @@
                 android:textStyle="bold"
                 tools:text="News title" />
 
+            <TextView
+                android:id="@+id/news_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12sp"
+                android:text="@{viewModel.newsAuthor}"
+                tools:text="News Author" />
+
+            <TextView
+                android:id="@+id/news_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12sp"
+                android:text="@{viewModel.newsRawDate}"
+                tools:text="News date" />
+
             <WebView
                 android:id="@+id/news_content"
                 android:layout_width="match_parent"
