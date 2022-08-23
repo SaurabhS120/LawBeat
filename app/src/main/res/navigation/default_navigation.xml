@@ -24,4 +24,9 @@
         android:name="com.example.lawbeats.presentation.DetailedNewsActivity"
         tools:layout="@layout/fragment_detailed_news" />
 
+    <activity
+        android:id="@+id/search_activity"
+        android:name="com.example.lawbeats.presentation.SearchActivity"
+        tools:layout="@layout/activity_search" />
+
 </navigation>

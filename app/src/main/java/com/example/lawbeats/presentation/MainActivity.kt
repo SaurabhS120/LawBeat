@@ -49,6 +49,9 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
             }
             return true
         }
+        if (item.itemId == R.id.searchActionButton) {
+            navigateTo(NavigationDestination.SearchDestination())
+        }
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
@@ -65,6 +68,10 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
             is NavigationDestination.DetailedNewsDestination -> {
                 newsDetailsLocalRepo.saveNews(navigationDestination.news)
                 navController.navigate(R.id.detailed_news_fragment)
+            }
+
+            is NavigationDestination.SearchDestination -> {
+                navController.navigate(R.id.search_activity)
             }
 
         }

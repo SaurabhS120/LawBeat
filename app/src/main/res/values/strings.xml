@@ -9,4 +9,6 @@
     <string name="news_image">News Image</string>
     <string name="dummy_news_heading">Dummy news Heading</string>
     <string name="open_drawer">Open Drawer</string>
+    <string name="search_news">Search News</string>
+    <string name="back">Back</string>
 </resources>

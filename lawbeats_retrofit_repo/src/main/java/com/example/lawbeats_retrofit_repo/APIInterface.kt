@@ -18,4 +18,13 @@ internal interface APIInterface {
 
     @POST("lawbeat-categories")
     suspend fun getCategories(): Response<CatagoriesResponse>
+
+    @GET("lawbeat-search-list")
+    suspend fun searchNews(
+        @Query("keyword") keyword: String,
+        @Query("page") page: Int = 1,
+        @Query("items_per_page") items_per_page: Int = 10,
+        @Query("uid") uid: Int = 66
+
+    ): Response<NewsResponse>
 }
