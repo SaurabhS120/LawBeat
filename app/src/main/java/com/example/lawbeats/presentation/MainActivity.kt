@@ -10,9 +10,11 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
+import com.example.app_domain.repo.NewsDetailsLocalRepo
 import com.example.core.MainActivityInterface
 import com.example.core.NavigationDestination
 import com.example.lawbeats.R
+import com.example.lawbeats.data.shared_pref.repo.SharedPrefNewsDetailsImpl
 import com.example.lawbeats.databinding.ActivityMainBinding
 
 
@@ -20,8 +22,10 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
     lateinit var binding:ActivityMainBinding
     lateinit var navController: NavController
     lateinit var detailedNewsViewModel: DetailedNewsViewModel
+    lateinit var newsDetailsLocalRepo: NewsDetailsLocalRepo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        newsDetailsLocalRepo = SharedPrefNewsDetailsImpl(applicationContext)
         val detailedNewsViewModel: DetailedNewsViewModel by viewModels()
         this.detailedNewsViewModel = detailedNewsViewModel
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this), null, false)
@@ -30,7 +34,7 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
-        val appBarConfiguration = AppBarConfiguration(navController.graph, binding.drawerLayout)
+        AppBarConfiguration(navController.graph, binding.drawerLayout)
         binding.navView
             .setupWithNavController(navController)
         setContentView(binding.root)
@@ -60,7 +64,7 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
             is NavigationDestination.RegisterDestination -> navController.navigate(R.id.registration_fragment)
 
             is NavigationDestination.DetailedNewsDestination -> {
-                detailedNewsViewModel.bindNews(navigationDestination.news)
+                newsDetailsLocalRepo.saveNews(navigationDestination.news)
                 navController.navigate(R.id.detailed_news_fragment)
             }
 

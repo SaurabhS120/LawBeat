@@ -19,9 +19,9 @@
         tools:layout="@layout/fragment_register"
         android:name="com.example.login.presentation.RegisterFragment" />
 
-    <fragment
+    <activity
         android:id="@+id/detailed_news_fragment"
-        android:name="com.example.lawbeats.presentation.DetailedNewsFragment"
+        android:name="com.example.lawbeats.presentation.DetailedNewsActivity"
         tools:layout="@layout/fragment_detailed_news" />
 
 </navigation>
