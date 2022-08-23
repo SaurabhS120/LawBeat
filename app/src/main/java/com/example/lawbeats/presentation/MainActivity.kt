@@ -2,6 +2,7 @@ package com.example.lawbeats.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -29,8 +30,6 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
         val detailedNewsViewModel: DetailedNewsViewModel by viewModels()
         this.detailedNewsViewModel = detailedNewsViewModel
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this), null, false)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
@@ -42,10 +41,10 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home){
-            if (binding.drawerLayout.isOpen){
+        if (item.itemId == R.id.drawerActionButton) {
+            if (binding.drawerLayout.isOpen) {
                 binding.drawerLayout.close()
-            }else{
+            } else {
                 binding.drawerLayout.open()
             }
             return true
@@ -69,5 +68,11 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
             }
 
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.top_bar_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+
     }
 }
