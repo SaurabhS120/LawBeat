@@ -17,23 +17,25 @@ internal class NewsRetrofitPagingSource(
         try {
             // Start refresh at page 1 if undefined.
             val nextPageNumber = params.key ?: 1
+            Log.d("next page no from param", nextPageNumber.toString())
             val response = backend.invoke(
                 tid = tid,
                 page = nextPageNumber,
                 uid = 66,
                 items_per_page = params.loadSize
             )
-      return when(response){
-        is NewsApiState.Success ->{
-            LoadResult.Page(
-                data = response.entities,
-                prevKey = null, // Only paging forward.
-                nextKey = response.nextPage
-            )
-        }
-        is NewsApiState.Failure -> {
-            Log.d("Paging Error", response.errorMsg)
-            LoadResult.Error(Exception(response.errorMsg))
+            when (response) {
+                is NewsApiState.Success -> {
+                    Log.d("next page in paging", response.nextPage.toString())
+                    return LoadResult.Page(
+                        data = response.entities,
+                        prevKey = null, // Only paging forward.
+                        nextKey = response.nextPage
+                    )
+                }
+                is NewsApiState.Failure -> {
+                    Log.d("Paging Error", response.errorMsg)
+                    return LoadResult.Error(Exception(response.errorMsg))
         }
       }
     } catch (e: Exception) {
@@ -53,9 +55,13 @@ internal class NewsRetrofitPagingSource(
     //  * nextKey == null -> anchorPage is the last page.
     //  * both prevKey and nextKey null -> anchorPage is the initial page, so
     //    just return null.
+      Log.d("anchorPosition", state.anchorPosition.toString())
     return state.anchorPosition?.let { anchorPosition ->
-      val anchorPage = state.closestPageToPosition(anchorPosition)
-      anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
+        Log.d("anchorPosition", anchorPosition.toString())
+        val anchorPage = state.closestPageToPosition(anchorPosition)
+        val result = anchorPage?.nextKey
+        Log.d("next key in paging", result.toString())
+        result
     }
   }
 }

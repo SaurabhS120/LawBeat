@@ -2,8 +2,9 @@ package com.example.lawbeats_retrofit_repo.repo
 
 import com.example.app_domain.repo.NewsRepo
 import com.example.app_domain.state.NewsApiState
-import com.example.lawbeats_retrofit_repo.mapper.NewsMapper
 import com.example.lawbeats_retrofit_repo.APIClient
+import com.example.lawbeats_retrofit_repo.mapper.NewsMapper
+import com.example.lawbeats_retrofit_repo.mapper.NewsNextPage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -16,9 +17,10 @@ class NewsRetrofitRepoImpl: NewsRepo {
             }catch (e:Exception){
                 return@withContext NewsApiState.Failure("Network failure:"+e.message)
             }
-            if (response.isSuccessful){
+            if (response.isSuccessful) {
                 val entities = NewsMapper.convert(response.body())
-                return@withContext NewsApiState.Success(entities)
+                val nextPage = NewsNextPage.convert(response.body())
+                return@withContext NewsApiState.Success(entities, nextPage)
             }
             else{
                 return@withContext NewsApiState.Failure("Network failure")

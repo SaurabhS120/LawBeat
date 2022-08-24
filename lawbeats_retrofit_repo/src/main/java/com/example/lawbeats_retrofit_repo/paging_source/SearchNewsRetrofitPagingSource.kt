@@ -16,7 +16,9 @@ internal class SearchNewsRetrofitPagingSource(
     ): LoadResult<Int, NewsEntity> {
         try {
             // Start refresh at page 1 if undefined.
-            val response = backend.invoke(keyword)
+            val nextPageNumber = params.key ?: 1
+            val response =
+                backend.invoke(keyword, page = nextPageNumber, pageSize = params.loadSize, uid = 66)
             return when (response) {
                 is NewsApiState.Success -> {
                     LoadResult.Page(
@@ -47,9 +49,13 @@ internal class SearchNewsRetrofitPagingSource(
         //  * nextKey == null -> anchorPage is the last page.
         //  * both prevKey and nextKey null -> anchorPage is the initial page, so
         //    just return null.
+        Log.d("anchorPosition", state.anchorPosition.toString())
         return state.anchorPosition?.let { anchorPosition ->
+            Log.d("anchorPosition", anchorPosition.toString())
             val anchorPage = state.closestPageToPosition(anchorPosition)
-            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
+            val result = anchorPage?.nextKey
+            Log.d("next key in paging", result.toString())
+            result
         }
     }
 }
