@@ -7,4 +7,5 @@ sealed class NavigationDestination {
     class RegisterDestination() : NavigationDestination()
     class DetailedNewsDestination(val news: NewsEntity) : NavigationDestination()
     class SearchDestination() : NavigationDestination()
+    class HomeDestination() : NavigationDestination()
 }
