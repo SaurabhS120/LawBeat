@@ -21,7 +21,8 @@ import com.example.core.NavigationDestination
 import com.example.lawbeats.R
 import com.example.lawbeats.data.shared_pref.repo.SharedPrefNewsDetailsImpl
 import com.example.lawbeats.databinding.ActivityMainBinding
-import com.example.lawbeats.presentation.recycler.HomeFragmentViewModel
+import com.example.lawbeats.presentation.viewmodel.DetailedNewsViewModel
+import com.example.lawbeats.presentation.viewmodel.HomeFragmentViewModel
 import com.example.lawbeats_retrofit_repo.repo.NewsTabsRetrofitRepoImpl
 
 

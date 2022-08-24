@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import com.example.app_domain.entity.NewsTabEntity
 import com.example.app_domain.repo.TabsRepo
 import com.example.app_domain.state.NewsTabApiState
 import com.example.lawbeats.databinding.FragmentHomeBinding
-import com.example.lawbeats.presentation.recycler.HomeFragmentViewModel
+import com.example.lawbeats.presentation.viewmodel.HomeFragmentViewModel
 import com.example.lawbeats_retrofit_repo.repo.NewsTabsRetrofitRepoImpl
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -36,10 +35,11 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launchWhenStarted {
-            val tabListResponse = tabsRepo.invoke()
-            when(tabListResponse){
-                is NewsTabApiState.Success-> {
+        val homeFragmentViewModel: HomeFragmentViewModel by activityViewModels()
+        this.homeFragmentViewModel = homeFragmentViewModel
+        homeFragmentViewModel.tabsResponse.observe(viewLifecycleOwner) { tabListResponse ->
+            when (tabListResponse) {
+                is NewsTabApiState.Success -> {
                     tabList = tabListResponse.tabList
                     binding.viewPager.adapter =
                         NewsCatagoriesAdapter(this@HomeFragment, tabListResponse.tabList)
@@ -54,8 +54,6 @@ class HomeFragment : Fragment() {
                 ).show()
             }
         }
-        val homeFragmentViewModel: HomeFragmentViewModel by activityViewModels()
-        this.homeFragmentViewModel = homeFragmentViewModel
         homeFragmentViewModel.selectedTab.observe(viewLifecycleOwner) { selectedItemName ->
             tabList?.forEachIndexed { index, newsTabEntity ->
                 if (newsTabEntity.name == selectedItemName) {

@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.lawbeats.presentation.DetailedNewsViewModel" />
+            type="com.example.lawbeats.presentation.viewmodel.DetailedNewsViewModel" />
     </data>
 
     <ScrollView

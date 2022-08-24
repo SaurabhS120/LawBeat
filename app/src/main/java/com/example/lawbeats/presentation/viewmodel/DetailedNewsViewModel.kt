@@ -1,4 +1,4 @@
-package com.example.lawbeats.presentation
+package com.example.lawbeats.presentation.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

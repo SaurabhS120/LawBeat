@@ -6,29 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_domain.entity.NewsEntity
-import com.example.app_domain.repo.NewsPagingRepo
-import com.example.app_domain.repo.NewsRepo
 import com.example.core.MainActivityInterface
 import com.example.core.NavigationDestination
 import com.example.lawbeats.databinding.FragmentNewsBinding
 import com.example.lawbeats.presentation.recycler.NewsPagingAdapter
-import com.example.lawbeats_retrofit_repo.repo.NewsRetrofitPagingRepo
-import com.example.lawbeats_retrofit_repo.repo.NewsRetrofitRepoImpl
+import com.example.lawbeats.presentation.viewmodel.NewsViewModel
+import com.example.lawbeats.presentation.viewmodel.NewsViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class NewsFragment : Fragment() {
-    //        val repo: NewsRepo = DemoNewsRepo()
-    val repo: NewsRepo = NewsRetrofitRepoImpl()
-    lateinit var pagingRepo: NewsPagingRepo
-
-    lateinit var adapter : NewsPagingAdapter
-    lateinit var binding:FragmentNewsBinding
+class NewsFragment() : Fragment() {
+    lateinit var newsViewModel: NewsViewModel
+    lateinit var adapter: NewsPagingAdapter
+    lateinit var binding: FragmentNewsBinding
     var tid: Int = 1
     lateinit var activityInterface: MainActivityInterface
     override fun onCreateView(
@@ -39,6 +35,8 @@ class NewsFragment : Fragment() {
         val activityInterface = requireActivity() as MainActivityInterface
         this.activityInterface = activityInterface
         tid = arguments?.getInt("tab_id") ?: 1
+        val newsViewModel: NewsViewModel by viewModels { NewsViewModelFactory(tid) }
+        this.newsViewModel = newsViewModel
         binding = FragmentNewsBinding.inflate(layoutInflater, container, false)
         binding.newsRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -49,7 +47,6 @@ class NewsFragment : Fragment() {
         }
         binding.newsRecyclerView.adapter = adapter
 
-        pagingRepo = NewsRetrofitPagingRepo(repo, tid, lifecycleScope)
 //        pagingRepo = DemoNewsPagingRepo(DemoNewsRepo(),tid,lifecycleScope)
 
         binding.swipeRefreshLayout.setOnRefreshListener {
@@ -68,7 +65,7 @@ class NewsFragment : Fragment() {
             }
         }
         lifecycleScope.launch {
-            pagingRepo.getPagingFlow().collectLatest { pagingData ->
+            newsViewModel.newsFlow.collectLatest { pagingData ->
                 adapter.submitData(pagingData)
             }
         }

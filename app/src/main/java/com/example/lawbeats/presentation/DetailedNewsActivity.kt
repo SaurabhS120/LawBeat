@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.lawbeats.R
 import com.example.lawbeats.databinding.FragmentDetailedNewsBinding
+import com.example.lawbeats.presentation.viewmodel.DetailedNewsViewModel
 
 class DetailedNewsActivity : AppCompatActivity() {
     lateinit var binding: FragmentDetailedNewsBinding
