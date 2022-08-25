@@ -1,11 +1,12 @@
-package com.example.lawbeats.presentation
+package com.example.lawbeats.presentation.paging_adapter
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.app_domain.entity.NewsTabEntity
+import com.example.lawbeats.presentation.NewsFragment
 
-class NewsCatagoriesAdapter(fragment: Fragment, val tabList: List<NewsTabEntity>) :
+class NewsCategoriesAdapter(fragment: Fragment, val tabList: List<NewsTabEntity>) :
     FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = tabList.size

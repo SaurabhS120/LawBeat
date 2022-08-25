@@ -11,6 +11,7 @@ import com.example.app_domain.entity.NewsTabEntity
 import com.example.app_domain.repo.TabsRepo
 import com.example.app_domain.state.NewsTabApiState
 import com.example.lawbeats.databinding.FragmentHomeBinding
+import com.example.lawbeats.presentation.paging_adapter.NewsCategoriesAdapter
 import com.example.lawbeats.presentation.viewmodel.HomeFragmentViewModel
 import com.example.lawbeats_retrofit_repo.repo.NewsTabsRetrofitRepoImpl
 import com.google.android.material.tabs.TabLayout
@@ -43,7 +44,7 @@ class HomeFragment : Fragment() {
                 is NewsTabApiState.Success -> {
                     tabList = tabListResponse.tabList
                     binding.viewPager.adapter =
-                        NewsCatagoriesAdapter(this@HomeFragment, tabListResponse.tabList)
+                        NewsCategoriesAdapter(this@HomeFragment, tabListResponse.tabList)
                     TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
                         tab.text = tabListResponse.tabList.get(position).name
                     }.attach()
