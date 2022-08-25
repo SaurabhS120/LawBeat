@@ -25,6 +25,7 @@ import com.example.lawbeats.databinding.ActivityMainBinding
 import com.example.lawbeats.presentation.viewmodel.DetailedNewsViewModel
 import com.example.lawbeats.presentation.viewmodel.HomeFragmentViewModel
 import com.example.lawbeats_retrofit_repo.repo.NewsTabsRetrofitRepoImpl
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
@@ -52,11 +53,18 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
 //            .setupWithNavController(navController)
         setContentView(binding.root)
         setCategoriesInMenu()
+        selectDrawerItem(R.id.home_fragment)
         binding.navView.setNavigationItemSelectedListener { selectedItem ->
             lifecycleScope.launch {
                 when (selectedItem.itemId) {
-                    R.id.home_fragment -> navigateTo(NavigationDestination.HomeDestination())
-                    R.id.login_fragment -> navigateTo(NavigationDestination.LoginDestination())
+                    R.id.home_fragment -> {
+                        navigateTo(NavigationDestination.HomeDestination())
+                        selectDrawerItem(R.id.home_fragment)
+                    }
+                    R.id.login_fragment -> {
+                        navigateTo(NavigationDestination.LoginDestination())
+                        selectDrawerItem(R.id.login_fragment)
+                    }
                     else -> {
                         homeFragmentViewModel.selectedTab.postValue(selectedItem.title.toString())
                         navigateTo(NavigationDestination.HomeDestination())
@@ -66,13 +74,10 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
             lifecycleScope.launch {
                 binding.drawerLayout.close()
             }
-            lifecycleScope.launch {
-                binding.navView.menu.iterator().forEach { menuItem ->
-                    if (menuItem.itemId == selectedItem.itemId) menuItem.setChecked(true)
-                    else menuItem.setChecked(false)
-                }
-            }
             true
+        }
+        homeFragmentViewModel.selectedTab.observe(this) { selectedTabName ->
+            selectDrawerItem(selectedTabName)
         }
     }
 
@@ -143,6 +148,24 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
         binding.navView.menu.iterator().forEach { menuItem ->
             if (menuItem.itemId == R.id.home_fragment) menuItem.setChecked(true)
             else menuItem.setChecked(false)
+        }
+    }
+
+    fun selectDrawerItem(itemId: Int) {
+        lifecycleScope.launch(Dispatchers.Main) {
+            binding.navView.menu.iterator().forEach { menuItem ->
+                if (menuItem.itemId == itemId) menuItem.setChecked(true)
+                else menuItem.setChecked(false)
+            }
+        }
+    }
+
+    fun selectDrawerItem(tabName: String) {
+        lifecycleScope.launch(Dispatchers.Main) {
+            binding.navView.menu.iterator().forEach { menuItem ->
+                if (menuItem.title == tabName) menuItem.setChecked(true)
+                else menuItem.setChecked(false)
+            }
         }
     }
 }

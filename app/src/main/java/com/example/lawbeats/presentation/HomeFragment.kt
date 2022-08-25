@@ -13,6 +13,7 @@ import com.example.app_domain.state.NewsTabApiState
 import com.example.lawbeats.databinding.FragmentHomeBinding
 import com.example.lawbeats.presentation.viewmodel.HomeFragmentViewModel
 import com.example.lawbeats_retrofit_repo.repo.NewsTabsRetrofitRepoImpl
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : Fragment() {
@@ -62,5 +63,13 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                homeFragmentViewModel.selectedTab.postValue(tab?.text.toString())
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
     }
 }
