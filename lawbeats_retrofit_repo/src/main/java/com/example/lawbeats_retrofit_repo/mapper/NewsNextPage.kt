@@ -15,7 +15,7 @@ internal object NewsNextPage {
                 if ((current_page + 1) <= total_pages) nextPage = current_page + 1
             }
         }
-        Log.d("next page:", nextPage.toString())
         return nextPage
+        Log.d("next page:", nextPage.toString())
     }
 }

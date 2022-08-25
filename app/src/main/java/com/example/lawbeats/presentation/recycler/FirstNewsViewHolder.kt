@@ -16,8 +16,8 @@ class FirstNewsViewHolder(val binding: FirstNewsItemBinding) :
         }
         if (newsEntity.imgUrl != null) {
             Glide.with(binding.newsImage.context).load(newsEntity.imgUrl)
-                .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.news_image)
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(binding.newsImage)
         } else {
             binding.newsImage.setImageResource(R.drawable.news_image)

@@ -23,9 +23,10 @@
             <ImageView
                 android:id="@+id/news_image"
                 android:layout_width="match_parent"
-                android:layout_height="250sp"
+                android:layout_height="wrap_content"
                 android:contentDescription="@string/news_image"
-                android:scaleType="centerCrop"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
                 tools:src="@drawable/news_image" />
 
             <TextView

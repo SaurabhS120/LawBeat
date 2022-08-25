@@ -31,9 +31,11 @@
                 <ImageView
                     android:id="@+id/news_image"
                     android:layout_width="125sp"
-                    android:layout_height="100sp"
-                    android:scaleType="centerCrop"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:contentDescription="@string/news_image"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="125sp"
                     tools:src="@drawable/news_image" />
             </androidx.cardview.widget.CardView>
 
