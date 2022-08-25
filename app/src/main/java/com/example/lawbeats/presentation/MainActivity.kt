@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.iterator
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
     lateinit var detailedNewsViewModel: DetailedNewsViewModel
     lateinit var newsDetailsLocalRepo: NewsDetailsLocalRepo
     var tabsList = listOf<NewsTabEntity>()
+    lateinit var topMenu: Menu
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         newsDetailsLocalRepo = SharedPrefNewsDetailsImpl(applicationContext)
@@ -84,11 +86,7 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.drawerActionButton) {
-            if (binding.drawerLayout.isOpen) {
-                binding.drawerLayout.close()
-            } else {
-                binding.drawerLayout.open()
-            }
+            toggleDrawer()
             return true
         }
         if (item.itemId == R.id.searchActionButton) {
@@ -96,7 +94,6 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
         }
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
-
     override fun navigateTo(navigationDestination: NavigationDestination) {
         when (navigationDestination) {
             is NavigationDestination.HomeDestination -> {
@@ -124,6 +121,7 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.top_bar_menu, menu)
+        topMenu = menu
         return super.onCreateOptionsMenu(menu)
 
     }
@@ -151,7 +149,7 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
         }
     }
 
-    fun selectDrawerItem(itemId: Int) {
+    private fun selectDrawerItem(itemId: Int) {
         lifecycleScope.launch(Dispatchers.Main) {
             binding.navView.menu.iterator().forEach { menuItem ->
                 if (menuItem.itemId == itemId) menuItem.setChecked(true)
@@ -160,12 +158,25 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
         }
     }
 
-    fun selectDrawerItem(tabName: String) {
+    private fun selectDrawerItem(tabName: String) {
         lifecycleScope.launch(Dispatchers.Main) {
             binding.navView.menu.iterator().forEach { menuItem ->
                 if (menuItem.title == tabName) menuItem.setChecked(true)
                 else menuItem.setChecked(false)
             }
+        }
+    }
+
+    private fun toggleDrawer() {
+        if (binding.drawerLayout.isOpen) {
+            topMenu.findItem(R.id.drawerActionButton)
+                .setIcon(ContextCompat.getDrawable(this, R.drawable.ic_icon_feather_menu))
+            binding.drawerLayout.close()
+
+        } else {
+            topMenu.findItem(R.id.drawerActionButton)
+                .setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_close_24))
+            binding.drawerLayout.open()
         }
     }
 }
