@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.iterator
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -24,6 +25,7 @@ import com.example.lawbeats.databinding.ActivityMainBinding
 import com.example.lawbeats.presentation.viewmodel.DetailedNewsViewModel
 import com.example.lawbeats.presentation.viewmodel.HomeFragmentViewModel
 import com.example.lawbeats_retrofit_repo.repo.NewsTabsRetrofitRepoImpl
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity(),MainActivityInterface {
@@ -51,15 +53,25 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
         setContentView(binding.root)
         setCategoriesInMenu()
         binding.navView.setNavigationItemSelectedListener { selectedItem ->
-            when (selectedItem.itemId) {
-                R.id.home_fragment -> navigateTo(NavigationDestination.HomeDestination())
-                R.id.login_fragment -> navigateTo(NavigationDestination.LoginDestination())
-                else -> {
-                    homeFragmentViewModel.selectedTab.postValue(selectedItem.title.toString())
-                    navigateTo(NavigationDestination.HomeDestination())
+            lifecycleScope.launch {
+                when (selectedItem.itemId) {
+                    R.id.home_fragment -> navigateTo(NavigationDestination.HomeDestination())
+                    R.id.login_fragment -> navigateTo(NavigationDestination.LoginDestination())
+                    else -> {
+                        homeFragmentViewModel.selectedTab.postValue(selectedItem.title.toString())
+                        navigateTo(NavigationDestination.HomeDestination())
+                    }
                 }
             }
-            binding.drawerLayout.close()
+            lifecycleScope.launch {
+                binding.drawerLayout.close()
+            }
+            lifecycleScope.launch {
+                binding.navView.menu.iterator().forEach { menuItem ->
+                    if (menuItem.itemId == selectedItem.itemId) menuItem.setChecked(true)
+                    else menuItem.setChecked(false)
+                }
+            }
             true
         }
     }
@@ -127,6 +139,10 @@ class MainActivity : AppCompatActivity(),MainActivityInterface {
                 }
             }
 
+        }
+        binding.navView.menu.iterator().forEach { menuItem ->
+            if (menuItem.itemId == R.id.home_fragment) menuItem.setChecked(true)
+            else menuItem.setChecked(false)
         }
     }
 }
