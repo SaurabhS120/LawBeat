@@ -68,6 +68,7 @@ class MainActivityDrawerController(
     }
 
     fun addNetworkTabs(tabList: List<NewsTabEntity>) {
+        navigationView.menu.clear()
         tabList.forEachIndexed { index, newsTabEntity ->
             val id = View.generateViewId()
             navigationView.menu.add(Menu.NONE, id, index, newsTabEntity.name)
