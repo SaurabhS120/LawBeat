@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -44,10 +45,16 @@ class MainActivity : AppCompatActivity(), MainActivityInterface {
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this), null, false)
         setContentView(binding.root)
 
+        setAppLayout()
         initializeViewModels()
         initializeFragmentNavigation()
         initializeNavigationController(tabsRepo, newsDetailsLocalRepo)
 
+    }
+
+    private fun setAppLayout() {
+        supportActionBar?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+        supportActionBar?.setCustomView(R.layout.appbar)
     }
 
     private fun initializeNavigationController(
