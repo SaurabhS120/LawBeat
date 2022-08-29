@@ -22,14 +22,14 @@ class MainActivityNavigationController(
                 when (selectedItem.itemId) {
                     R.id.home_fragment -> {
                         activity.navigateTo(NavigationDestination.HomeDestination())
-                        mainActivityDrawerController.selectDrawerItem(R.id.home_fragment)
+//                        mainActivityDrawerController.selectDrawerItem(R.id.home_fragment)
                     }
                     R.id.login_fragment -> {
                         activity.navigateTo(NavigationDestination.LoginDestination())
-                        mainActivityDrawerController.selectDrawerItem(R.id.login_fragment)
+//                        mainActivityDrawerController.selectDrawerItem(R.id.login_fragment)
                     }
                     else -> {
-                        activity.homeFragmentViewModel.selectedTab.postValue(selectedItem.title.toString())
+//                        activity.homeFragmentViewModel.selectedTab.postValue(selectedItem.title.toString())
                         activity.navigateTo(NavigationDestination.HomeDestination())
                     }
                 }

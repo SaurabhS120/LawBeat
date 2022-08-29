@@ -11,4 +11,6 @@
     <color name="cardBackgroundColor">#DCA86A</color>
     <color name="light_gray">#E6E6E6</color>
     <color name="logo_background_color">#66F1F1F1</color>
+    <color name="colorPrimary">#A6613C</color>
+    <color name="defaultTextColor">#393939</color>
 </resources>

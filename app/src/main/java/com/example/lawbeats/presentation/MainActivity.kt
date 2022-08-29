@@ -4,16 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.onNavDestinationSelected
-import com.example.app_domain.repo.TabsRepo
-import com.example.app_domain.state.NewsTabApiState
 import com.example.core.MainActivityInterface
 import com.example.core.NavigationDestination
 import com.example.lawbeats.R
@@ -23,7 +19,6 @@ import com.example.lawbeats.presentation.main_activity_tools.MainActivityDrawerC
 import com.example.lawbeats.presentation.main_activity_tools.MainActivityNavigationController
 import com.example.lawbeats.presentation.viewmodel.DetailedNewsViewModel
 import com.example.lawbeats.presentation.viewmodel.HomeFragmentViewModel
-import com.example.lawbeats_retrofit_repo.repo.NewsTabsRetrofitRepoImpl
 
 
 class MainActivity : AppCompatActivity(), MainActivityInterface {
@@ -40,7 +35,7 @@ class MainActivity : AppCompatActivity(), MainActivityInterface {
         super.onCreate(savedInstanceState)
 
         val newsDetailsLocalRepo = SharedPrefNewsDetailsImpl(applicationContext)
-        val tabsRepo: TabsRepo = NewsTabsRetrofitRepoImpl()
+//        val tabsRepo: TabsRepo = NewsTabsRetrofitRepoImpl()
 
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this), null, false)
         setContentView(binding.root)
@@ -48,7 +43,7 @@ class MainActivity : AppCompatActivity(), MainActivityInterface {
         setAppLayout()
         initializeViewModels()
         initializeFragmentNavigation()
-        initializeNavigationController(tabsRepo, newsDetailsLocalRepo)
+        initializeNavigationController(newsDetailsLocalRepo)
 
     }
 
@@ -58,10 +53,8 @@ class MainActivity : AppCompatActivity(), MainActivityInterface {
     }
 
     private fun initializeNavigationController(
-        tabsRepo: TabsRepo,
         newsDetailsLocalRepo: SharedPrefNewsDetailsImpl
     ) {
-        setCategoriesInMenu(tabsRepo, drawerController)
         navigationController = MainActivityNavigationController(
             this,
             binding.navView,
@@ -71,7 +64,7 @@ class MainActivity : AppCompatActivity(), MainActivityInterface {
         )
         navigationController.initialize()
         homeFragmentViewModel.selectedTab.observe(this) { selectedTabName ->
-            drawerController.selectDrawerItem(selectedTabName)
+//            drawerController.selectDrawerItem(selectedTabName)
         }
     }
 
@@ -83,7 +76,7 @@ class MainActivity : AppCompatActivity(), MainActivityInterface {
 //        binding.navView
 //            .setupWithNavController(navController)
         drawerController =
-            MainActivityDrawerController(this, binding.drawerLayout, binding.navView)
+            MainActivityDrawerController(this, binding.drawerLayout)
     }
 
     private fun initializeViewModels() {
@@ -125,25 +118,6 @@ class MainActivity : AppCompatActivity(), MainActivityInterface {
 
         return super.onCreateOptionsMenu(menu)
 
-    }
-
-    private fun setCategoriesInMenu(
-        tabsRepo: TabsRepo,
-        drawerController: MainActivityDrawerController
-    ) {
-        lifecycleScope.launchWhenCreated {
-            val tabs = tabsRepo.invoke()
-            when (tabs) {
-                is NewsTabApiState.Success -> {
-                    val tabsList = tabs.tabList
-                    drawerController.addNetworkTabs(tabsList)
-                }
-                is NewsTabApiState.Failure -> {
-                    Toast.makeText(this@MainActivity, tabs.errorMsg, Toast.LENGTH_SHORT).show()
-                }
-            }
-
-        }
     }
 
 }
