@@ -12,6 +12,7 @@ import com.example.app_domain.state.NewsTabApiState
 import com.example.lawbeats.ExpandableListItem
 import com.example.lawbeats.NewsTabsToExpandableMapper
 import com.example.lawbeats.databinding.FragmentDrawerBinding
+import com.example.lawbeats.presentation.recycler.DrawerRecyclerAdapter
 import com.example.lawbeats.presentation.viewmodel.HomeFragmentViewModel
 
 class DrawerFragment : Fragment() {

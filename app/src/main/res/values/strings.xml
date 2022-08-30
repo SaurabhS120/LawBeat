@@ -15,4 +15,5 @@
     <string name="login">Login</string>
     <string name="law_beat_logo">Law Beat Logo</string>
     <string name="dropdown_image">Dropdown image</string>
+    <string name="hello_user">Hello, User</string>
 </resources>

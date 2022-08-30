@@ -1,4 +1,4 @@
-package com.example.lawbeats.presentation
+package com.example.lawbeats.presentation.recycler
 
 import android.view.LayoutInflater
 import android.view.View
@@ -175,7 +175,6 @@ class DrawerRecyclerAdapter(val onTabSelected: (tab: ExpandableListItem) -> Unit
     inner class NewsDrawerSubCatViewHolder(val drawerItemBinding: DrawerItemBinding) :
         NewsDrawerViewHolder(drawerItemBinding.root) {
         fun bind(newsTab: ExpandableListItem.SubCategoryExpandableListItem, position: Int) {
-            drawerItemBinding.name.setText(newsTab.tab.name)
             drawerItemBinding.name.setText(newsTab.tab.name)
             if (position == selected_pos) {
                 setTextColor(R.color.colorPrimary)
