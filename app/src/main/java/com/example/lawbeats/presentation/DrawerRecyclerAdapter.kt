@@ -176,33 +176,42 @@ class DrawerRecyclerAdapter(val onTabSelected: (tab: ExpandableListItem) -> Unit
         NewsDrawerViewHolder(drawerItemBinding.root) {
         fun bind(newsTab: ExpandableListItem.SubCategoryExpandableListItem, position: Int) {
             drawerItemBinding.name.setText(newsTab.tab.name)
+            drawerItemBinding.name.setText(newsTab.tab.name)
             if (position == selected_pos) {
-                drawerItemBinding.name.setTextColor(
-                    ContextCompat.getColor(
-                        drawerItemBinding.root.context,
-                        R.color.colorPrimary
-                    )
-                )
+                setTextColor(R.color.colorPrimary)
             } else {
-                drawerItemBinding.name.setTextColor(
-                    ContextCompat.getColor(
-                        drawerItemBinding.root.context,
-                        R.color.defaultTextColor
-                    )
-                )
+                setTextColor(R.color.defaultTextColor)
             }
             if (newsTab.isVisible) {
-                drawerItemBinding.root.visibility = View.VISIBLE
-                drawerItemBinding.root.setLayoutParams(
-                    RecyclerView.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    )
-                )
+                showItem()
             } else {
-                drawerItemBinding.root.visibility = View.GONE
-                drawerItemBinding.root.setLayoutParams(RecyclerView.LayoutParams(0, 0))
+                hideItem()
             }
+        }
+
+        private fun hideItem() {
+            drawerItemBinding.root.visibility = View.GONE
+            drawerItemBinding.root.setLayoutParams(RecyclerView.LayoutParams(0, 0))
+        }
+
+        private fun showItem() {
+            drawerItemBinding.root.visibility = View.VISIBLE
+            drawerItemBinding.root.setLayoutParams(
+                RecyclerView.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+            )
+        }
+
+        private fun setTextColor(colorRes: Int) {
+            drawerItemBinding.name.setTextColor(
+                ContextCompat.getColor(
+                    drawerItemBinding.root.context,
+                    colorRes
+                )
+            )
+
         }
 
         override fun bind(newsTab: ExpandableListItem, position: Int) {
