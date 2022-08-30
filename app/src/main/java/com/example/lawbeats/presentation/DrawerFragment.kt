@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_domain.state.NewsTabApiState
+import com.example.lawbeats.ExpandableListItem
+import com.example.lawbeats.NewsTabsToExpandableMapper
 import com.example.lawbeats.databinding.FragmentDrawerBinding
 import com.example.lawbeats.presentation.viewmodel.HomeFragmentViewModel
 
@@ -24,14 +26,29 @@ class DrawerFragment : Fragment() {
         binding.drawerRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         val adapter = DrawerRecyclerAdapter { newsTab ->
-            homeFragmentViewModel.selectedTab.postValue(newsTab.name)
+            when (newsTab) {
+                is ExpandableListItem.CategoryExpandableListItem -> {
+                    homeFragmentViewModel.selectedTab.postValue(newsTab.tab.name)
+                }
+                is ExpandableListItem.SubCategoryExpandableListItem -> {
+                    homeFragmentViewModel.selectedTab.postValue(newsTab.tab.name)
+                }
+            }
         }
         binding.drawerRecyclerView.adapter = adapter
         homeFragmentViewModel.tabsResponse.observe(viewLifecycleOwner) {
             val response = it
             when (response) {
                 is NewsTabApiState.Success -> {
-                    adapter.submitList(response.tabList)
+//                    val newsTabList = mutableListOf<ExpandableListItem>()
+//                        response.tabList.forEach { newsTabEntity ->
+//                        newsTabList.add(newsTabEntity)
+//                            newsTabEntity.newsCategories?.forEach {
+//                                newsTabList.add(NewsTabEntity("0",it.name))
+//                            }
+//                    }
+                    val newsTabList = NewsTabsToExpandableMapper.convert(response.tabList)
+                    adapter.submitList(newsTabList)
                 }
                 is NewsTabApiState.Failure -> {
                     Toast.makeText(requireContext(), response.errorMsg, Toast.LENGTH_SHORT).show()

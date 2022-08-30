@@ -13,4 +13,5 @@
     <color name="logo_background_color">#66F1F1F1</color>
     <color name="colorPrimary">#A6613C</color>
     <color name="defaultTextColor">#393939</color>
+    <color name="subCatItemBackground">#33000000</color>
 </resources>
