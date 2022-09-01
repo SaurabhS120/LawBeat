@@ -1,4 +1,4 @@
-package com.example.lawbeats
+package com.example.lawbeats.presentation.recycler
 
 import com.example.app_domain.entity.NewsTabEntity
 

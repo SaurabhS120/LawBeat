@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.lawbeats.ExpandableListItem
 import com.example.lawbeats.R
 import com.example.lawbeats.databinding.DrawerItemBinding
 import com.example.lawbeats.databinding.DrawerItemExpandableBinding
@@ -82,15 +81,15 @@ class DrawerRecyclerAdapter(val onTabSelected: (tab: ExpandableListItem) -> Unit
         private fun setDropdownImageListener(newsTab: ExpandableListItem.CategoryExpandableListItem) {
             if (newsTab.expanded) {
                 expandedCategory = newsTab
-                setCollapseListener(newsTab)
+                setCollapseWithListener(newsTab, animate = false)
             } else {
-                setExpandListener(newsTab)
+                setExpandWithListener(newsTab, animate = false)
             }
         }
 
         private fun collapse(newsTab: ExpandableListItem.CategoryExpandableListItem) {
             hideSubCategory(newsTab)
-            setExpandListener(newsTab)
+            setExpandWithListener(newsTab)
             collapseAlreadyExpanded()
             newsTab.expanded = false
             expandedCategory = null
@@ -114,9 +113,20 @@ class DrawerRecyclerAdapter(val onTabSelected: (tab: ExpandableListItem) -> Unit
             notifyItemChanged(position)
         }
 
-        private fun setExpandListener(newsTab: ExpandableListItem.CategoryExpandableListItem) {
-            drawerItemBinding.dropdownImage.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24)
-            drawerItemBinding.dropdownImage.setOnClickListener {
+        fun setDropdownDrawable(drawables: DropdownDrawables, animate: Boolean = true) {
+            drawerItemBinding.dropdownImage.setImageResource(drawables.resId)
+            if (animate) {
+                val animation = drawables.getAnimation()
+                drawerItemBinding.dropdownImage.animation = animation
+            }
+        }
+
+        private fun setExpandWithListener(
+            newsTab: ExpandableListItem.CategoryExpandableListItem,
+            animate: Boolean = true
+        ) {
+            setDropdownDrawable(DropdownDrawables.EXPANDED, animate)
+            drawerItemBinding.root.setOnClickListener {
                 expand(newsTab)
             }
         }
@@ -132,7 +142,7 @@ class DrawerRecyclerAdapter(val onTabSelected: (tab: ExpandableListItem) -> Unit
 
         private fun expand(newsTab: ExpandableListItem.CategoryExpandableListItem) {
             showSubCategory(newsTab)
-            setCollapseListener(newsTab)
+            setCollapseWithListener(newsTab)
             collapseAlreadyExpanded()
             expandedCategory = newsTab
             newsTab.expanded = true
@@ -145,9 +155,12 @@ class DrawerRecyclerAdapter(val onTabSelected: (tab: ExpandableListItem) -> Unit
             }
         }
 
-        private fun setCollapseListener(newsTab: ExpandableListItem.CategoryExpandableListItem) {
-            drawerItemBinding.dropdownImage.setImageResource(R.drawable.ic_baseline_arrow_drop_up_24)
-            drawerItemBinding.dropdownImage.setOnClickListener {
+        private fun setCollapseWithListener(
+            newsTab: ExpandableListItem.CategoryExpandableListItem,
+            animate: Boolean = true
+        ) {
+            setDropdownDrawable(DropdownDrawables.COLLAPSED, animate)
+            drawerItemBinding.root.setOnClickListener {
                 collapse(newsTab)
             }
         }
