@@ -1,6 +1,7 @@
 package com.example.lawbeats.presentation.main_activity_tools
 
 import android.view.MenuItem
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.lawbeats.R
@@ -21,22 +22,35 @@ class MainActivityDrawerController(
         this.drawerMenuItem = drawerMenuItem
     }
 
+    fun initialize() {
+        drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
+
+            override fun onDrawerOpened(drawerView: View) {
+                drawerMenuItem?.setIcon(openDrawerDrawable)
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+                drawerMenuItem?.setIcon(closeDrawerDrawable)
+            }
+
+            override fun onDrawerStateChanged(newState: Int) {}
+        })
+    }
+
     fun toggleDrawer() {
         if (drawerLayout.isOpen) {
             closeDrawer()
-
         } else {
             openDrawer()
         }
     }
 
     fun openDrawer() {
-        drawerMenuItem?.setIcon(openDrawerDrawable)
         drawerLayout.open()
     }
 
     fun closeDrawer() {
-        drawerMenuItem?.setIcon(closeDrawerDrawable)
         drawerLayout.close()
     }
 

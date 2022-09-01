@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity(), MainActivityInterface {
 //            .setupWithNavController(navController)
         drawerController =
             MainActivityDrawerController(this, binding.drawerLayout)
+        drawerController.initialize()
     }
 
     private fun initializeViewModels() {
