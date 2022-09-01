@@ -63,13 +63,13 @@
                     tools:text="News date" />
 
                 <TextView
-                    android:id="@+id/news_time"
+                    android:id="@+id/news_read_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.newsDate}"
+                    android:text="@{viewModel.newsReadTime}"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="10m ago" />
+                    tools:text="5 minutes" />
 
                 <ImageView
                     android:id="@+id/bookmark_image"
@@ -79,7 +79,7 @@
                     android:contentDescription="@string/bookmark"
                     android:src="@drawable/ic_baseline_bookmark_border_24"
                     app:layout_constraintRight_toLeftOf="@id/share_image"
-                    app:layout_constraintTop_toBottomOf="@id/news_time"
+                    app:layout_constraintTop_toBottomOf="@id/news_read_time"
                     app:tint="@color/defaultTextColor" />
 
                 <ImageView
@@ -90,7 +90,7 @@
                     android:contentDescription="@string/share"
                     android:src="@drawable/ic_baseline_share_24"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/news_time"
+                    app:layout_constraintTop_toBottomOf="@id/news_read_time"
                     app:tint="@color/defaultTextColor" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

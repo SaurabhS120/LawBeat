@@ -13,7 +13,7 @@ class DetailedNewsViewModel(application: Application) : AndroidViewModel(applica
     val newsContent = MutableLiveData<String>()
     val newsImageUrl = MutableLiveData<String?>()
     val newsAuthor = MutableLiveData<String>()
-    val newsDate = MutableLiveData<String>()
+    val newsReadTime = MutableLiveData<String>()
     val newsRawDate = MutableLiveData<String>()
     val synopsis = MutableLiveData<String>()
 
@@ -29,7 +29,7 @@ class DetailedNewsViewModel(application: Application) : AndroidViewModel(applica
         newsContent.postValue(news.content)
         newsImageUrl.postValue(news.imgUrl)
         newsAuthor.postValue(news.author)
-        newsDate.postValue(news.time)
+        newsReadTime.postValue(news.news_read_time)
         newsRawDate.postValue(news.raw_date)
         synopsis.postValue(news.synopsis)
     }

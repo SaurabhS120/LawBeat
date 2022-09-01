@@ -13,7 +13,8 @@ internal object NewsMapper {
                 it?.authorName ?: "",
                 it?.date ?: "",
                 it?.rawDate ?: "",
-                it?.synopsis ?: ""
+                it?.synopsis ?: "",
+                it?.readingTime ?: ""
             )
         } ?: listOf()
     }

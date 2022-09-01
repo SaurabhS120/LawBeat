@@ -9,7 +9,8 @@ class NewsEntity(
     val author: String = "",
     val time: String = "",
     val raw_date: String = "",
-    val synopsis: String = ""
+    val synopsis: String = "",
+    val news_read_time: String = "",
 ) {
     companion object {
         val DIFF_UTIL = object : DiffUtil.ItemCallback<NewsEntity>() {
