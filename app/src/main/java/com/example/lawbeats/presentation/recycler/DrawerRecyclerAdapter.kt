@@ -11,7 +11,7 @@ import com.example.lawbeats.R
 import com.example.lawbeats.databinding.DrawerItemBinding
 import com.example.lawbeats.databinding.DrawerItemExpandableBinding
 
-class DrawerRecyclerAdapter(val onTabSelected: (tab: ExpandableListItem) -> Unit) :
+class DrawerRecyclerAdapter(val onTabSelected: (tab: ExpandableListItem) -> Boolean) :
     ListAdapter<ExpandableListItem, DrawerRecyclerAdapter.NewsDrawerViewHolder>(diffUtil) {
     private var selected_pos = 0
     private var expandedCategory: ExpandableListItem.CategoryExpandableListItem? = null
@@ -178,8 +178,8 @@ class DrawerRecyclerAdapter(val onTabSelected: (tab: ExpandableListItem) -> Unit
 
         override fun setSelectedListener(position: Int) {
             drawerItemBinding.name.setOnClickListener {
-                selectTab(position)
-                onTabSelected(getItem(position))
+                if (onTabSelected(getItem(position)))
+                    selectTab(position)
             }
         }
 
@@ -239,8 +239,9 @@ class DrawerRecyclerAdapter(val onTabSelected: (tab: ExpandableListItem) -> Unit
 
         override fun setSelectedListener(position: Int) {
             drawerItemBinding.name.setOnClickListener {
-                selectTab(position)
-                onTabSelected(getItem(position))
+                if (onTabSelected(getItem(position)))
+                    selectTab(position)
+
             }
         }
 

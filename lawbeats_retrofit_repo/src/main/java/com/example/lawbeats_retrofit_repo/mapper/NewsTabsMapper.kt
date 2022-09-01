@@ -11,7 +11,7 @@ object NewsTabsMapper {
                 it.id.toString(),
                 it.name ?: "none",
                 it.subcat?.filterNotNull()?.map {
-                    NewsSubCategoryEntity(it.name ?: "none")
+                    NewsSubCategoryEntity(it.id?.toInt() ?: 1, it.name ?: "none")
                 }
             )
         } ?: listOf()

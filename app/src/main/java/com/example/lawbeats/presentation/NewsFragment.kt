@@ -1,5 +1,6 @@
 package com.example.lawbeats.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_domain.entity.NewsEntity
+import com.example.app_domain.repo.NewsDetailsLocalRepo
 import com.example.core.MainActivityInterface
 import com.example.core.NavigationDestination
+import com.example.lawbeats.data.shared_pref.repo.SharedPrefNewsDetailsImpl
 import com.example.lawbeats.databinding.FragmentNewsBinding
 import com.example.lawbeats.presentation.recycler.NewsPagingAdapter
 import com.example.lawbeats.presentation.viewmodel.NewsViewModel
@@ -25,15 +28,19 @@ class NewsFragment() : Fragment() {
     lateinit var newsViewModel: NewsViewModel
     lateinit var adapter: NewsPagingAdapter
     lateinit var binding: FragmentNewsBinding
+    lateinit var newsDetailsLocalRepo: NewsDetailsLocalRepo
     var tid: Int = 1
-    lateinit var activityInterface: MainActivityInterface
+    var activityInterface: MainActivityInterface? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        val activityInterface = requireActivity() as MainActivityInterface
-        this.activityInterface = activityInterface
+        if (requireActivity()::class.java.isAssignableFrom(MainActivityInterface::class.java)) {
+            val activityInterface = requireActivity() as MainActivityInterface
+            this.activityInterface = activityInterface
+        }
+        newsDetailsLocalRepo = SharedPrefNewsDetailsImpl(requireContext().applicationContext)
         tid = arguments?.getInt("tab_id") ?: 1
         val newsViewModel: NewsViewModel by viewModels { NewsViewModelFactory(tid) }
         this.newsViewModel = newsViewModel
@@ -73,6 +80,12 @@ class NewsFragment() : Fragment() {
     }
 
     fun showDetailedNews(newsEntity: NewsEntity) {
-        activityInterface.navigateTo(NavigationDestination.DetailedNewsDestination(newsEntity))
+        if (activityInterface != null) {
+            activityInterface?.navigateTo(NavigationDestination.DetailedNewsDestination(newsEntity))
+        } else {
+
+            newsDetailsLocalRepo.saveNews(newsEntity)
+            startActivity(Intent(requireActivity(), DetailedNewsActivity::class.java))
+        }
     }
 }

@@ -57,11 +57,9 @@ class HomeFragment : Fragment() {
             }
         }
         homeFragmentViewModel.selectedTab.observe(viewLifecycleOwner) { selectedItemName ->
-            tabList?.forEachIndexed { index, newsTabEntity ->
-                if (newsTabEntity.name == selectedItemName) {
-                    binding.viewPager.currentItem = index
-                    return@observe
-                }
+            val tabIndex = getTabIndex(selectedItemName)
+            tabIndex?.let {
+                binding.viewPager.currentItem = tabIndex
             }
         }
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -72,5 +70,15 @@ class HomeFragment : Fragment() {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
+    }
+
+
+    private fun getTabIndex(selectedItemName: String?): Int? {
+        tabList?.forEachIndexed { index, newsTabEntity ->
+            if (newsTabEntity.name == selectedItemName) {
+                return index
+            }
+        }
+        return null
     }
 }

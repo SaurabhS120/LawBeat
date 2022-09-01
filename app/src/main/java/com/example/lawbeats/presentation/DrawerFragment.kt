@@ -1,5 +1,6 @@
 package com.example.lawbeats.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.app_domain.entity.NewsSubCategoryEntity
 import com.example.app_domain.state.NewsTabApiState
 import com.example.lawbeats.databinding.FragmentDrawerBinding
 import com.example.lawbeats.presentation.recycler.DrawerRecyclerAdapter
@@ -16,7 +18,7 @@ import com.example.lawbeats.presentation.recycler.NewsTabsToExpandableMapper
 import com.example.lawbeats.presentation.viewmodel.HomeFragmentViewModel
 
 class DrawerFragment : Fragment() {
-
+    lateinit var homeFragmentViewModel: HomeFragmentViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,15 +26,24 @@ class DrawerFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentDrawerBinding.inflate(layoutInflater, container, false)
         val homeFragmentViewModel: HomeFragmentViewModel by activityViewModels()
+        this.homeFragmentViewModel = homeFragmentViewModel
         binding.drawerRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         val adapter = DrawerRecyclerAdapter { newsTab ->
             when (newsTab) {
                 is ExpandableListItem.CategoryExpandableListItem -> {
                     homeFragmentViewModel.selectedTab.postValue(newsTab.tab.name)
+                    return@DrawerRecyclerAdapter true
                 }
                 is ExpandableListItem.SubCategoryExpandableListItem -> {
-                    homeFragmentViewModel.selectedTab.postValue(newsTab.tab.name)
+                    val subCatId: Int = newsTab.tab.id
+                    val categoryName: String = newsTab.tab.name
+                    val intent = Intent(requireActivity(), NewsListActivity::class.java).apply {
+                        putExtra("tab_id", subCatId)
+                        putExtra("category_name", categoryName)
+                    }
+                    startActivity(intent)
+                    return@DrawerRecyclerAdapter false
                 }
             }
         }
@@ -60,5 +71,23 @@ class DrawerFragment : Fragment() {
             adapter.selectTab(it)
         }
         return binding.root
+    }
+
+    private fun getSelectedSubCategory(selectedItemName: String): NewsSubCategoryEntity? {
+        val response = homeFragmentViewModel.tabsResponse.value
+        when (response) {
+            is NewsTabApiState.Success -> {
+                response.tabList.forEach {
+                    it.newsCategories?.forEach {
+                        if (it.name == selectedItemName) {
+                            return it
+                        }
+                    }
+                }
+            }
+            is NewsTabApiState.Failure -> {}
+            null -> {}
+        }
+        return null
     }
 }
