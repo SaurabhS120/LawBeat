@@ -30,6 +30,10 @@ class DetailedNewsActivity : AppCompatActivity() {
                 binding.newsImage.setImageResource(R.drawable.news_image)
             }
         }
+        detailedNewsViewModel.synopsis.observe(this) {
+            val encodedHtml = Base64.encodeToString(it.toByteArray(), Base64.NO_PADDING)
+            binding.synopsis.loadData(encodedHtml, "text/html", "base64")
+        }
         detailedNewsViewModel.newsContent.observe(this) {
             val encodedHtml = Base64.encodeToString(it.toByteArray(), Base64.NO_PADDING)
             binding.newsContent.loadData(encodedHtml, "text/html", "base64")

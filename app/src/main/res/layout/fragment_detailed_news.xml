@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -25,7 +26,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/news_image"
-                android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
                 tools:src="@drawable/news_image" />
 
@@ -39,21 +39,77 @@
                 android:textStyle="bold"
                 tools:text="News title" />
 
-            <TextView
-                android:id="@+id/news_author"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12sp"
-                android:text="@{viewModel.newsAuthor}"
-                tools:text="News Author" />
+                android:layout_margin="12sp">
+
+                <TextView
+                    android:id="@+id/news_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.newsAuthor}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="News Author" />
+
+                <TextView
+                    android:id="@+id/news_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.newsRawDate}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/news_author"
+                    tools:text="News date" />
+
+                <TextView
+                    android:id="@+id/news_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.newsDate}"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="10m ago" />
+
+                <ImageView
+                    android:id="@+id/bookmark_image"
+                    android:layout_width="36sp"
+                    android:layout_height="36sp"
+                    android:layout_margin="4sp"
+                    android:contentDescription="@string/bookmark"
+                    android:src="@drawable/ic_baseline_bookmark_border_24"
+                    app:layout_constraintRight_toLeftOf="@id/share_image"
+                    app:layout_constraintTop_toBottomOf="@id/news_time"
+                    app:tint="@color/defaultTextColor" />
+
+                <ImageView
+                    android:id="@+id/share_image"
+                    android:layout_width="36sp"
+                    android:layout_height="36sp"
+                    android:layout_margin="4sp"
+                    android:contentDescription="@string/share"
+                    android:src="@drawable/ic_baseline_share_24"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/news_time"
+                    app:tint="@color/defaultTextColor" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/news_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/synopsis_heading"
+                android:textColor="?attr/colorPrimary"
+                android:layout_marginHorizontal="12sp"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+
+            <WebView
+                android:id="@+id/synopsis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12sp"
-                android:text="@{viewModel.newsRawDate}"
-                tools:text="News date" />
+                tools:text="Dummy synopsis" />
 
             <WebView
                 android:id="@+id/news_content"

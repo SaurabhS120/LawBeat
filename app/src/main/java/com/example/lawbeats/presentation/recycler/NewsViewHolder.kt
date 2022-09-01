@@ -9,7 +9,10 @@ import com.example.lawbeats.databinding.NewsItemBinding
 class NewsViewHolder(val binding: NewsItemBinding) : NewsViewHolderInterface(binding.root) {
     override fun bindData(newsEntity: NewsEntity, onNewsSelected: (news: NewsEntity) -> Unit) {
         binding.newsHeading.setText(newsEntity.title)
-        binding.authorAndDate.setText("${newsEntity.author} | ${newsEntity.time}")
+        if (newsEntity.author.isNotBlank())
+            binding.authorAndDate.setText("${newsEntity.author} | ${newsEntity.time}")
+        else
+            binding.authorAndDate.setText(newsEntity.time)
         binding.root.setOnClickListener {
             onNewsSelected(newsEntity)
         }

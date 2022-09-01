@@ -56,7 +56,7 @@ internal data class DataItem1(
 	val otherImages: Any? = null,
 
 	@field:SerializedName("synopsis")
-	val synopsis: Any? = null,
+	val synopsis: String? = null,
 
 	@field:SerializedName("title")
 	val title: String? = null,

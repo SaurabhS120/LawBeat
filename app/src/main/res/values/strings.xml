@@ -16,4 +16,7 @@
     <string name="law_beat_logo">Law Beat Logo</string>
     <string name="dropdown_image">Dropdown image</string>
     <string name="hello_user">Hello, User</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="share">Share</string>
+    <string name="synopsis_heading">Synopsis:</string>
 </resources>

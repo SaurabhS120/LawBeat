@@ -15,6 +15,7 @@ class SharedPrefNewsDetailsImpl(applicationContext: Context) : NewsDetailsLocalR
             putString("author", news.author)
             putString("time", news.time)
             putString("raw_date", news.raw_date)
+            putString("synopsis", news.synopsis)
         }
     }
 
@@ -25,6 +26,7 @@ class SharedPrefNewsDetailsImpl(applicationContext: Context) : NewsDetailsLocalR
         val author = sp.getString("author", "") ?: ""
         val time = sp.getString("time", "") ?: ""
         val raw_date = sp.getString("raw_date", "") ?: ""
-        return NewsEntity(title, content, imgUrl, author, time, raw_date)
+        val synopsis = sp.getString("synopsis", "") ?: ""
+        return NewsEntity(title, content, imgUrl, author, time, raw_date, synopsis)
     }
 }

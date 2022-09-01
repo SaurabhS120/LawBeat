@@ -15,6 +15,7 @@ class DetailedNewsViewModel(application: Application) : AndroidViewModel(applica
     val newsAuthor = MutableLiveData<String>()
     val newsDate = MutableLiveData<String>()
     val newsRawDate = MutableLiveData<String>()
+    val synopsis = MutableLiveData<String>()
 
     init {
         val repo: NewsDetailsLocalRepo = SharedPrefNewsDetailsImpl(getApplication())
@@ -30,5 +31,6 @@ class DetailedNewsViewModel(application: Application) : AndroidViewModel(applica
         newsAuthor.postValue(news.author)
         newsDate.postValue(news.time)
         newsRawDate.postValue(news.raw_date)
+        synopsis.postValue(news.synopsis)
     }
 }
