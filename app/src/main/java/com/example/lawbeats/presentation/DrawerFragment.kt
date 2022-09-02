@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.app_domain.entity.NewsSubCategoryEntity
 import com.example.app_domain.state.NewsTabApiState
 import com.example.lawbeats.databinding.FragmentDrawerBinding
 import com.example.lawbeats.presentation.recycler.DrawerRecyclerAdapter
@@ -36,13 +35,7 @@ class DrawerFragment : Fragment() {
                     return@DrawerRecyclerAdapter true
                 }
                 is ExpandableListItem.SubCategoryExpandableListItem -> {
-                    val subCatId: Int = newsTab.tab.id
-                    val categoryName: String = newsTab.tab.name
-                    val intent = Intent(requireActivity(), NewsListActivity::class.java).apply {
-                        putExtra("tab_id", subCatId)
-                        putExtra("category_name", categoryName)
-                    }
-                    startActivity(intent)
+                    openNewsSubCategoryActivity(newsTab)
                     return@DrawerRecyclerAdapter false
                 }
             }
@@ -73,21 +66,13 @@ class DrawerFragment : Fragment() {
         return binding.root
     }
 
-    private fun getSelectedSubCategory(selectedItemName: String): NewsSubCategoryEntity? {
-        val response = homeFragmentViewModel.tabsResponse.value
-        when (response) {
-            is NewsTabApiState.Success -> {
-                response.tabList.forEach {
-                    it.newsCategories?.forEach {
-                        if (it.name == selectedItemName) {
-                            return it
-                        }
-                    }
-                }
-            }
-            is NewsTabApiState.Failure -> {}
-            null -> {}
+    private fun openNewsSubCategoryActivity(newsTab: ExpandableListItem.SubCategoryExpandableListItem) {
+        val subCatId: Int = newsTab.tab.id
+        val categoryName: String = newsTab.tab.name
+        val intent = Intent(requireActivity(), NewsListActivity::class.java).apply {
+            putExtra("tab_id", subCatId)
+            putExtra("category_name", categoryName)
         }
-        return null
+        startActivity(intent)
     }
 }

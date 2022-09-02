@@ -83,7 +83,6 @@ class NewsFragment() : Fragment() {
         if (activityInterface != null) {
             activityInterface?.navigateTo(NavigationDestination.DetailedNewsDestination(newsEntity))
         } else {
-
             newsDetailsLocalRepo.saveNews(newsEntity)
             startActivity(Intent(requireActivity(), DetailedNewsActivity::class.java))
         }

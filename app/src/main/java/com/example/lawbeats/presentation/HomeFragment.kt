@@ -72,7 +72,6 @@ class HomeFragment : Fragment() {
         })
     }
 
-
     private fun getTabIndex(selectedItemName: String?): Int? {
         tabList?.forEachIndexed { index, newsTabEntity ->
             if (newsTabEntity.name == selectedItemName) {
@@ -81,4 +80,5 @@ class HomeFragment : Fragment() {
         }
         return null
     }
+
 }
