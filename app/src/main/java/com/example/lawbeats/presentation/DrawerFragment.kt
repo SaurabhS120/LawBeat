@@ -63,6 +63,9 @@ class DrawerFragment : Fragment() {
         homeFragmentViewModel.selectedTab.observe(viewLifecycleOwner) {
             adapter.selectTab(it)
         }
+        binding.settingsImageView.setOnClickListener {
+            homeFragmentViewModel.drawerState.postValue(DrawerStates.MENU)
+        }
         return binding.root
     }
 

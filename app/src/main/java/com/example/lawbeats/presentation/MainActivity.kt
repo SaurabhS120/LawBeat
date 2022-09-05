@@ -7,6 +7,8 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.onNavDestinationSelected
@@ -29,7 +31,8 @@ class MainActivity : AppCompatActivity(), MainActivityInterface {
     lateinit var detailedNewsViewModel: DetailedNewsViewModel
     lateinit var drawerController: MainActivityDrawerController
     lateinit var navigationController: MainActivityNavigationController
-
+    private val drawerFragment = DrawerFragment()
+    private val menuFragment = MenuFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -88,6 +91,10 @@ class MainActivity : AppCompatActivity(), MainActivityInterface {
         this.homeFragmentViewModel = homeFragmentViewModel
         this.detailedNewsViewModel = detailedNewsViewModel
 
+        homeFragmentViewModel.drawerState.observe(this){
+            setDrawerState(it)
+        }
+
     }
 
 
@@ -119,6 +126,31 @@ class MainActivity : AppCompatActivity(), MainActivityInterface {
 
         return super.onCreateOptionsMenu(menu)
 
+    }
+
+    fun setDrawerState(state:DrawerStates){
+        when(state){
+            DrawerStates.DRAWER -> {
+
+                supportFragmentManager.beginTransaction().apply {
+                    setCustomAnimations(
+                        R.anim.slide_in_back,
+                        R.anim.slide_out_back,
+                    )
+                    replace(binding.fragmentContainerView.id,drawerFragment)
+                }.commit()
+
+            }
+            DrawerStates.MENU -> {
+                supportFragmentManager.beginTransaction().apply {
+                    setCustomAnimations(
+                        R.anim.slide_in,
+                        R.anim.slide_out,
+                    )
+                    replace(binding.fragmentContainerView.id,menuFragment)
+                }.commit()
+            }
+        }
     }
 
 }
