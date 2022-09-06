@@ -7,14 +7,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.lawbeats.databinding.MenuItemBinding
 import com.example.lawbeats.presentation.MenuItemEntity
 
-class MenuRecyclerAdapter : RecyclerView.Adapter<MenuRecyclerAdapter.MenuItemViewHolder>() {
+class MenuRecyclerAdapter(private val onDataChange:(List<MenuItemEntity>)->Unit) : RecyclerView.Adapter<MenuRecyclerAdapter.MenuItemViewHolder>() {
     val menuList = mutableListOf<MenuItemEntity>()
-    class MenuItemViewHolder(private val menuItemBinding: MenuItemBinding):RecyclerView.ViewHolder(menuItemBinding.root){
+    inner class MenuItemViewHolder(private val menuItemBinding: MenuItemBinding):RecyclerView.ViewHolder(menuItemBinding.root){
         fun bind(itemEntity:MenuItemEntity){
             menuItemBinding.text.setText(itemEntity.title)
             menuItemBinding.switch1.visibility =
-                if (itemEntity.hasSwitch) View.VISIBLE
+                if (itemEntity.hasSwitch){
+                    menuItemBinding.switch1.isChecked = itemEntity.isChecked
+                    View.VISIBLE
+                }
                 else View.INVISIBLE
+            menuItemBinding.switch1.setOnCheckedChangeListener { compoundButton, b ->
+                itemEntity.isChecked = b
+                onDataChange(menuList)
+            }
         }
     }
 
@@ -31,6 +38,8 @@ class MenuRecyclerAdapter : RecyclerView.Adapter<MenuRecyclerAdapter.MenuItemVie
         return menuList.size
     }
     fun setData(data:List<MenuItemEntity>){
+//        menuList = data.toMutableList()
+//        notifyDataSetChanged()
         val oldSize = menuList.size
         menuList.clear()
         notifyItemRangeRemoved(0,oldSize)

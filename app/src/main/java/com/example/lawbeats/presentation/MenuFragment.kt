@@ -26,18 +26,11 @@ class MenuFragment : Fragment() {
             homeFragmentViewModel.drawerState.postValue(DrawerStates.DRAWER)
         }
         binding.menuRecycler.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-        val adapter = MenuRecyclerAdapter()
+        val adapter = MenuRecyclerAdapter(){
+            homeFragmentViewModel.menuItems.postValue(it)
+        }
         binding.menuRecycler.adapter = adapter
-        adapter.setData(listOf(
-            MenuItemEntity("Notifications",true),
-            MenuItemEntity("Night Mode",true),
-            MenuItemEntity("Bookmarks",false),
-            MenuItemEntity("Share This App",false),
-            MenuItemEntity("About Us",false),
-            MenuItemEntity("Contact Us",false),
-            MenuItemEntity("Privacy Policy",false),
-            MenuItemEntity("Terms of use",false),
-        ))
+        adapter.setData(homeFragmentViewModel.menuItems.value?:homeFragmentViewModel.data)
         return binding.root
     }
 
