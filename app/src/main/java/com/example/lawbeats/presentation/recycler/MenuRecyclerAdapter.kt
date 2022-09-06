@@ -5,12 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lawbeats.databinding.MenuItemBinding
-import com.example.lawbeats.presentation.MenuItemEntity
+import com.example.app_domain.entity.MenuItemEntity
 
 class MenuRecyclerAdapter(private val onDataChange:(List<MenuItemEntity>)->Unit) : RecyclerView.Adapter<MenuRecyclerAdapter.MenuItemViewHolder>() {
     val menuList = mutableListOf<MenuItemEntity>()
     inner class MenuItemViewHolder(private val menuItemBinding: MenuItemBinding):RecyclerView.ViewHolder(menuItemBinding.root){
-        fun bind(itemEntity:MenuItemEntity){
+        fun bind(itemEntity: MenuItemEntity){
             menuItemBinding.text.setText(itemEntity.title)
             menuItemBinding.switch1.visibility =
                 if (itemEntity.hasSwitch){

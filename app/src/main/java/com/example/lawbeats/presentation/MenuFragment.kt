@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.lawbeats.R
 import com.example.lawbeats.databinding.FragmentMenuBinding
 import com.example.lawbeats.presentation.recycler.MenuRecyclerAdapter
 import com.example.lawbeats.presentation.viewmodel.HomeFragmentViewModel
@@ -30,7 +29,7 @@ class MenuFragment : Fragment() {
             homeFragmentViewModel.menuItems.postValue(it)
         }
         binding.menuRecycler.adapter = adapter
-        adapter.setData(homeFragmentViewModel.menuItems.value?:homeFragmentViewModel.data)
+        adapter.setData(homeFragmentViewModel.menuItems.value?:homeFragmentViewModel.menu_data)
         return binding.root
     }
 
