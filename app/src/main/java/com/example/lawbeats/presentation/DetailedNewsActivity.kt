@@ -1,15 +1,10 @@
 package com.example.lawbeats.presentation
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Base64
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.webkit.WebSettingsCompat
-import androidx.webkit.WebSettingsCompat.FORCE_DARK_OFF
-import androidx.webkit.WebSettingsCompat.FORCE_DARK_ON
-import androidx.webkit.WebViewFeature
 import com.bumptech.glide.Glide
 import com.example.lawbeats.R
 import com.example.lawbeats.databinding.FragmentDetailedNewsBinding
@@ -42,21 +37,6 @@ class DetailedNewsActivity : AppCompatActivity() {
         detailedNewsViewModel.newsContent.observe(this) {
             val encodedHtml = Base64.encodeToString(it.toByteArray(), Base64.NO_PADDING)
             binding.newsContent.loadData(encodedHtml, "text/html", "base64")
-        }
-        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
-            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                Configuration.UI_MODE_NIGHT_YES -> {
-                    WebSettingsCompat.setForceDark(binding.synopsis.settings, FORCE_DARK_ON)
-                    WebSettingsCompat.setForceDark(binding.newsContent.settings, FORCE_DARK_ON)
-                }
-                Configuration.UI_MODE_NIGHT_NO, Configuration.UI_MODE_NIGHT_UNDEFINED -> {
-                    WebSettingsCompat.setForceDark(binding.synopsis.settings, FORCE_DARK_OFF)
-                    WebSettingsCompat.setForceDark(binding.newsContent.settings, FORCE_DARK_OFF)
-                }
-                else -> {
-                    //
-                }
-            }
         }
 
     }
