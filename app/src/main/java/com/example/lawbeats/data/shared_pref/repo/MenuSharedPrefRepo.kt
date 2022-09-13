@@ -24,4 +24,7 @@ class MenuSharedPrefRepo(applicationContext: Context):MenuRepo {
             }
         }
     }
+    override fun isEnabled(title:String): Boolean {
+        return sp.getBoolean(title,false)
+    }
 }

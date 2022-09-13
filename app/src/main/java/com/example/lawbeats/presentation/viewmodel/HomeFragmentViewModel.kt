@@ -10,6 +10,7 @@ import com.example.lawbeats.presentation.HomeFragment
 import com.example.app_domain.entity.MenuItemEntity
 import com.example.app_domain.repo.MenuRepo
 import com.example.lawbeats.data.shared_pref.repo.MenuSharedPrefRepo
+import com.example.lawbeats.presentation.LightNightMode
 import kotlinx.coroutines.launch
 
 class HomeFragmentViewModel(app:Application) : AndroidViewModel(app) {
@@ -18,7 +19,7 @@ class HomeFragmentViewModel(app:Application) : AndroidViewModel(app) {
     val drawerState = MutableLiveData(DrawerStates.DRAWER)
     val menu_data = listOf(
         MenuItemEntity("Notifications",true),
-        MenuItemEntity("Night Mode",true),
+        MenuItemEntity(LightNightMode.NIGHT_MODE_TITLE,true),
         MenuItemEntity("Bookmarks"),
         MenuItemEntity("Share This App"),
         MenuItemEntity("About Us"),

@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.core.MainActivityInterface
 import com.example.lawbeats.databinding.FragmentMenuBinding
 import com.example.lawbeats.presentation.recycler.MenuRecyclerAdapter
 import com.example.lawbeats.presentation.viewmodel.HomeFragmentViewModel
@@ -14,11 +16,13 @@ import com.example.lawbeats.presentation.viewmodel.HomeFragmentViewModel
 class MenuFragment : Fragment() {
     private lateinit var homeFragmentViewModel: HomeFragmentViewModel
     private lateinit var binding :FragmentMenuBinding
+    private lateinit var mainActivityInterface:MainActivityInterface
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMenuBinding.inflate(layoutInflater,container,false)
+        mainActivityInterface = requireActivity() as MainActivityInterface
         initializeViewModels()
         // Inflate the layout for this fragment
         binding.backArrow.setOnClickListener {

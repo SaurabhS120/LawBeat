@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lawbeats.databinding.MenuItemBinding
 import com.example.app_domain.entity.MenuItemEntity
+import com.example.lawbeats.presentation.LightNightMode
 
 class MenuRecyclerAdapter(private val onDataChange:(List<MenuItemEntity>)->Unit) : RecyclerView.Adapter<MenuRecyclerAdapter.MenuItemViewHolder>() {
     val menuList = mutableListOf<MenuItemEntity>()
@@ -18,9 +19,18 @@ class MenuRecyclerAdapter(private val onDataChange:(List<MenuItemEntity>)->Unit)
                     View.VISIBLE
                 }
                 else View.INVISIBLE
-            menuItemBinding.switch1.setOnCheckedChangeListener { compoundButton, b ->
-                itemEntity.isChecked = b
-                onDataChange(menuList)
+            if (itemEntity.title == LightNightMode.NIGHT_MODE_TITLE){
+                menuItemBinding.switch1.setOnCheckedChangeListener { compoundButton, b ->
+                    itemEntity.isChecked = b
+                    onDataChange(menuList)
+                    LightNightMode.setDarkMode(b)
+                }
+            }
+            else{
+                menuItemBinding.switch1.setOnCheckedChangeListener { compoundButton, b ->
+                    itemEntity.isChecked = b
+                    onDataChange(menuList)
+                }
             }
         }
     }
