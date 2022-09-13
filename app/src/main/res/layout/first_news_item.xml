@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10sp"
                 android:text="@string/dummy_news_heading"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
             <!--            <TextView-->
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="12sp"
-                    android:textColor="@color/white"
+                    android:textColor="?attr/colorOnPrimary"
                     tools:text="Author | time" />
 
                 <LinearLayout
@@ -75,7 +75,7 @@
                         android:contentDescription="@string/news_image"
                         android:padding="10sp"
                         android:src="@drawable/ic_baseline_bookmark_border_24"
-                        app:tint="@color/white" />
+                        app:tint="?attr/colorOnPrimary" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
                         android:contentDescription="@string/news_image"
                         android:padding="10sp"
                         android:src="@drawable/ic_baseline_share_24"
-                        app:tint="@color/white" />
+                        app:tint="?attr/colorOnPrimary" />
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>
